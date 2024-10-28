@@ -1,70 +1,104 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import { Accordion, AccordionContent, AccordionContentText, AccordionHeader, AccordionIcon, AccordionItem, AccordionTitleText, AccordionTrigger}  from '@/components/ui/accordion'
+import { ChevronUpIcon, ChevronDownIcon } from '@/components/ui/icon';
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function HomeScreen() {
+export default function App(){
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({ ios: 'cmd + d', android: 'cmd + m' })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-        <ThemedText>
-          Tap the Explore tab to learn more about what's included in this starter app.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          When you're ready, run{' '}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+    <Accordion
+    className="w-[90%] m-5 border border-outline-300"
+    type="multiple"
+  >
+    <AccordionItem value="a"
+       className="border-b border-outline-300"
+      >
+      <AccordionHeader 
+      className="bg-background-0"
+      >
+        <AccordionTrigger>
+          {({ isExpanded }) => {
+            return (
+              <>
+                <AccordionTitleText>
+         What does the "type" prop of the Accordion component do?
+                </AccordionTitleText>
+                {isExpanded ? (
+                  <AccordionIcon as={ChevronUpIcon} />
+                ) : (
+                  <AccordionIcon as={ChevronDownIcon} />
+                )}
+              </>
+            );
+          }}
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent className="mt-0 pt-2 bg-background-50"
+      >
+        <AccordionContentText>
+          The type prop determines whether one or multiple items can be
+          opened at the same time. The default value is "single" which means
+          only one item can be opened at a time. 
+        </AccordionContentText>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem
+      value="b"
+      className="border-b border-outline-300"
+    >
+      <AccordionHeader     >
+        <AccordionTrigger>
+          {({ isExpanded }) => {
+            return (
+              <>
+                <AccordionTitleText>
+               Can I disable the whole accordion?
+                </AccordionTitleText>
+                {isExpanded ? (
+                  <AccordionIcon as={ChevronUpIcon} />
+                ) : (
+                  <AccordionIcon as={ChevronDownIcon} />
+                )}
+              </>
+            );
+          }}
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent className="mt-0 pt-2 bg-background-50"
+      >
+        <AccordionContentText>
+          Yes, you can disable the whole accordion by setting the isDisabled
+          prop to true on the Accordion component.
+        </AccordionContentText>
+      </AccordionContent>
+    </AccordionItem>
+    <AccordionItem
+      value="c"
+    >
+      <AccordionHeader
+      className="bg-background-0"
+      >
+        <AccordionTrigger>
+          {({ isExpanded }) => {
+            return (
+              <>
+                <AccordionTitleText>
+               What is a controlled accordion? How can I make it controlled?
+                </AccordionTitleText>
+                {isExpanded ? (
+                  <AccordionIcon as={ChevronUpIcon} />
+                ) : (
+                  <AccordionIcon as={ChevronDownIcon} />
+                )}
+              </>
+            );
+          }}
+        </AccordionTrigger>
+      </AccordionHeader>
+      <AccordionContent className="mt-0 pt-2 bg-background-50"
+      >
+        <AccordionContentText>
+    Controlled components refer to the components where the state and behaviors are controlled by the Parent component. You can make the accordion a controlled component by passing the value prop to the Accordion component and setting the onValueChange prop to update the value prop. Refer to the controlled accordion example in the docs.
+        </AccordionContentText>
+      </AccordionContent>
+    </AccordionItem>
+  </Accordion>
+);
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
